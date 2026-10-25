@@ -1,0 +1,252 @@
+/* --- BASES & POLICES --- */
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background-color: #f8fafc; 
+    margin: 0; 
+    color: #334155; 
+}
+
+header { 
+    background: linear-gradient(135deg, #047857, #065f46); 
+    color: white; 
+    padding: 50px 20px; 
+    text-align: center; 
+    position: relative;
+    overflow: hidden;
+}
+
+header h1 { 
+    margin: 0; 
+    font-size: 42px; 
+    font-weight: 800; 
+    letter-spacing: -0.5px;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+header p {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-top: 10px;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+/* --- ANIMATION FLASH DU BADGE PILOTE --- */
+.badge { 
+    background-color: #059669; 
+    font-size: 12px; 
+    padding: 8px 16px; 
+    border-radius: 20px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    margin-top: 15px; 
+    display: inline-block; 
+    border: 1px solid #34d399;
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+    animation: pulseBadge 2s infinite, fadeInUp 0.8s ease-out 0.4s backwards;
+}
+
+/* Conteneur principal centré */
+.container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 20px; 
+}
+
+/* Grille pour la page de détails : 2 colonnes sur grand écran (70% pour le texte, 30% pour les blocs) */
+.layout-detail { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 30px; 
+    margin-top: 30px;
+}
+
+@media (min-width: 1024px) {
+    .layout-detail {
+        grid-template-columns: 2fr 1fr; /* Bascule en 2 colonnes propres sur PC */
+    }
+}
+
+/* Correction de la couleur du texte du bloc sombre SADDUR */
+.sidebar-dark { 
+    background: linear-gradient(135deg, #064e3b, #022c22); 
+    color: #f8fafc !important; 
+    padding: 30px; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-dark h3 { 
+    color: #34d399 !important; 
+    margin-top: 0; 
+    font-size: 20px;
+}
+
+.sidebar-dark p {
+    color: #e2e8f0 !important;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* --- GRILLE & EFFETS SPECIAUX SUR LES CARTES --- */
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+    gap: 30px; 
+}
+
+.card { 
+    background: white; 
+    border-radius: 20px; 
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); 
+    overflow: hidden; 
+    border: 1px solid #f1f5f9; 
+    
+    /* Effet spécial de transition douce */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    top: 0;
+}
+
+/* Au survol de la souris sur la carte d'une mairie */
+.card:hover {
+    top: -8px; /* La carte s'élève légèrement */
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); /* L'ombre devient profonde */
+    border-color: #a7f3d0; /* La bordure s'illumine en vert clair */
+}
+
+.card-header { 
+    background-color: #f8fafc; 
+    padding: 24px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid #f1f5f9;
+    transition: background-color 0.3s;
+}
+
+.card:hover .card-header {
+    background-color: #ecfdf5; /* L'en-tête de carte se colore discrètement au survol */
+}
+
+.card-header h4 { 
+    margin: 0; 
+    color: #0f172a; 
+    font-size: 22px; 
+    font-weight: 700;
+}
+
+.card-body { 
+    padding: 24px; 
+}
+
+.avatar { 
+    width: 65px; 
+    height: 65px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid #cbd5e1; 
+    transition: all 0.3s ease;
+}
+
+.card:hover .avatar {
+    border-color: #10b981; /* L'avatar du Maire s'entoure de vert au survol de la carte */
+    transform: scale(1.05); /* Légère augmentation de la taille de la photo */
+}
+
+/* --- EFFET GLOW SUR LES BOUTONS --- */
+.btn { 
+    display: block; 
+    text-align: center; 
+    background-color: #059669; 
+    color: white; 
+    padding: 14px; 
+    border-radius: 12px; 
+    text-decoration: none; 
+    font-weight: 600; 
+    margin-top: 20px; 
+    box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn:hover { 
+    background-color: #047857; 
+    box-shadow: 0 10px 15px -3px rgba(4, 120, 87, 0.4); /* Effet de brillance lumineuse */
+    transform: translateY(-1px);
+}
+
+footer { 
+    text-align: center; 
+    padding: 40px; 
+    color: #94a3b8; 
+    margin-top: 80px; 
+    background: #0f172a; 
+}
+
+/* --- KEYFRAMES DES ANIMATIONS --- */
+@keyframes pulseBadge {
+    0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* --- BANDEAU DÉFILANT STYLE INSTITUTIONNEL (STYLE COLEPS) --- */
+.ticker-container {
+    background-color: #1e3a8a; /* Bleu institutionnel comme le bandeau "INFOS" de COLEPS */
+    color: #ffffff;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 4px 6px -1px rgba(0,0,0,0.1);
+    border-bottom: 2px solid #1d4ed8;
+}
+
+/* Le carré rouge fixe "INFOS" à gauche */
+.ticker-title {
+    background-color: #dc2626; /* Rouge vif comme sur l'image */
+    color: white;
+    padding: 10px 20px;
+    font-weight: 900;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.2);
+    margin: -10px 0 -10px 0; /* Aligne parfaitement le bloc en hauteur */
+}
+
+/* La zone de texte qui bouge */
+.ticker-text-wrapper {
+    display: inline-block;
+    padding-left: 100%; /* Commence en dehors de l'écran à droite */
+    animation: defilement-infini 25s linear infinite; /* 25 secondes pour faire le tour complet */
+}
+
+.ticker-text-wrapper p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    display: inline-block;
+    letter-spacing: 0.5px;
+}
+
+/* L'animation CSS du mouvement de droite à gauche */
+@keyframes defilement-infini {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-100%, 0, 0); /* Se déplace vers la gauche jusqu'à disparaître */
+    }
+}

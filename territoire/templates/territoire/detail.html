@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mairie de {{ mairie.nom }} - Communautedurable.cm</title>
+    <!-- Utilisation de notre feuille de style locale sécurisée -->
+    <link rel="stylesheet" href="{% static 'territoire/css/styles_public.css' %}">
+</head>
+<body>
+
+    <!-- BARRE DE NAVIGATION -->
+    <nav style="background-color: #065f46; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="{% url 'accueil_public' %}" style="color: white; text-decoration: none; font-weight: bold;">&larr; Retour à l'accueil national</a>
+        <span class="badge" style="background-color: #047857; margin-top: 0;">Espace Officiel Certifié</span>
+    </nav>
+
+    <!-- EN-TÊTE DE LA COMMUNE -->
+    <div class="header-detail" style="background: white; padding: 30px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 20px;">
+        {% if mairie.armoiries %}
+            <img src="{{ mairie.armoiries.url }}" alt="Armoiries {{ mairie.nom }}" style="height: 90px; width: 90px; object-fit: contain;">
+        {% endif %}
+        <div>
+            <span style="font-size: 12px; text-transform: uppercase; font-weight: bold; color: #059669; letter-spacing: 1px;">
+                Région du Sud &bull; {{ mairie.departement.nom }}
+            </span>
+            <h1 style="margin: 5px 0 0 0; font-size: 36px; color: #1e293b; font-weight: 800;">Mairie de {{ mairie.nom }}</h1>
+            <p style="margin: 5px 0 0 0; color: #64748b; font-size: 16px;">Les services publics connectés de votre municipalité</p>
+        </div>
+    </div>
+
+    <!-- BANDEAU DÉFILANT SUR LA PAGE DE DÉTAILS (STYLE COLEPS) -->
+    <div class="ticker-container">
+        <div class="ticker-title">INFOS MUNICIPALES</div>
+        <div class="ticker-text-wrapper">
+            <p>
+                Bienvenue sur la vitrine officielle de la Mairie de {{ mairie.nom }}. Retrouvez en temps réel les avis d'appels d'offres, les opportunités d'investissement territoriales et les bulletins municipaux de votre collectivité locale. &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp; Programme d'accompagnement à la transition numérique mené par l'Association SADDUR.
+            </p>
+        </div>
+    </div>
+
+    <!-- CORPS DE LA PAGE (DISPOSITION EN GRILLE RESPONSIVE) -->
+    <main class="container layout-detail">
+        
+        <!-- ================= COLONNE DE GAUCHE : TEXTES ET DOSSIERS ================= -->
+        <div>
+            <!-- SECTION LE MOT DU MAIRE -->
+            <div class="manifeste">
+                <h2 style="margin-top: 0; color: #0f172a; border-bottom: 2px solid #059669; display: inline-block; padding-bottom: 5px;">
+                    Le Mot de l'Exécutif Municipal
+                </h2>
+                <div style="display: flex; gap: 20px; align-items: start; margin-top: 20px;">
+                    {% if mairie.photo_du_maire %}
+                        <img src="{{ mairie.photo_du_maire.url }}" alt="Maire de {{ mairie.nom }}" style="width: 120px; height: 120px; border-radius: 12px; object-fit: cover; border: 1px solid #cbd5e1;">
+                    {% endif %}
+                    <div>
+                        <h3 style="margin: 0; color: #1e293b; font-size: 20px;">{{ mairie.nom_du_maire|default:"Monsieur le Maire" }}</h3>
+                        <p style="margin: 0; font-size: 12px; color: #94a3b8; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Maire de la Commune</p>
+                        <p style="color: #475569; line-height: 1.6; font-style: italic; margin-top: 15px;">
+                            &ldquo; {{ mairie.mot_du_maire|default:"Bienvenue sur la vitrine numérique officielle de notre commune. Nous construisons ensemble un territoire connecté, durable et attractif pour nos citoyens et notre Diaspora." }} &rdquo;
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION HISTOIRE & GEOGRAPHIE -->
+            <div class="manifeste">
+                <h2 style="margin-top: 0; color: #0f172a; border-bottom: 2px solid #059669; display: inline-block; padding-bottom: 5px;">
+                    Histoire, Culture et Géographie
+                </h2>
+                <div style="color: #475569; line-height: 1.7; margin-top: 15px;">
+                    <h4 style="color: #1e293b; margin-bottom: 5px; font-size: 16px; font-weight: 700;">Présentation du territoire</h4>
+                    <p style="margin-bottom: 20px;">{{ mairie.geographie|default:"Les données géographiques et les limites territoriales de cette municipalité sont en cours de validation par les services techniques de la commune." }}</p>
+                    
+                    <h4 style="color: #1e293b; margin-bottom: 5px; font-size: 16px; font-weight: 700;">Patrimoine, Traditions et Origines</h4>
+                    <p>{{ mairie.histoire|default:"L'historique, les traditions et les spécificités des peuples locaux sont en cours de rédaction par la cellule de communication de la mairie." }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= COLONNE DE DROITE : BARRE LATÉRALE CONTENANT LES BLOCS ================= -->
+        <div>
+            <!-- 1. BLOC POTENTIEL SADDUR -->
+            <div class="sidebar-dark">
+                <h3>Potentiel de Développement</h3>
+                <p>
+                    L'association SADDUR (Siege d'Appui au Développement Durable)créer depuis l'année 2017 accompagne activement cette collectivité locale dans la cartographie et la valorisation de ses richesses naturelles, agricoles et transfrontalières pour stimuler l'économie verte locale.
+                </p>
+                <hr style="border: 0; border-top: 1px solid #064e3b; margin: 15px 0;">
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a7f3d0;">
+                    <li style="margin-bottom: 10px;">🌱 Hub Agro-pastoral Connecté *(À venir)*</li>
+                    <li style="margin-bottom: 10px;">💼 Guichet d'Investissement Diaspora</li>
+                    <li>📊 Indicateurs de Performance ODD</li>
+                </ul>
+            </div>
+
+            <!-- 2. BLOC DES DOCUMENTS ET PDF TÉLÉCHARGEABLES -->
+            <div class="manifeste" style="margin-top: 30px; padding: 20px;">
+                <h3 style="margin-top: 0; color: #1e293b; font-size: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; font-weight: 700;">
+                    Bulletins & Documents Officiels
+                </h3>
+                
+                {% if mairie.documents.all %}
+                    <ul style="list-style: none; padding: 0; margin: 15px 0 0 0;">
+                        {% for doc in mairie.documents.all %}
+                            <li style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                                <div>
+                                    <span style="font-size: 10px; font-weight: bold; background-color: #f1f5f9; color: #475569; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">
+                                        {{ doc.get_type_document_display }}
+                                    </span>
+                                    <p style="margin: 5px 0 0 0; font-weight: 600; font-size: 14px; color: #334155;">{{ doc.titre }}</p>
+                                    <span style="font-size: 11px; color: #94a3b8;">Publié le {{ doc.date_publication|date:"d M Y" }}</span>
+                                </div>
+                                <a href="{{ doc.fichier_pdf.url }}" target="_blank" style="background-color: #059669; color: white; text-decoration: none; font-size: 12px; font-weight: bold; padding: 8px 14px; border-radius: 8px; white-space: nowrap; transition: background 0.2s;">
+                                    Télécharger
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p style="font-size: 13px; color: #94a3b8; margin-top: 15px; font-style: italic; text-align: center;">
+                        Aucun document officiel n'a encore été téléversé par la commune.
+                    </p>
+                {% endif %}
+            </div>
+
+            <!-- 3. BLOC CONTACTS COMMUNE -->
+            <div class="manifeste" style="margin-top: 30px; padding: 20px;">
+                <h3 style="margin-top: 0; color: #1e293b; font-size: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; font-weight: 700;">Contacts Officiels</h3>
+                <p style="font-size: 14px; margin: 12px 0;"><span style="color: #94a3b8; font-weight: bold; width: 80px; display: inline-block;">Téléphone :</span> {{ mairie.telephone|default:"Non renseigné" }}</p>
+                <p style="font-size: 14px; margin: 12px 0;"><span style="color: #94a3b8; font-weight: bold; width: 80px; display: inline-block;">E-mail :</span> {{ mairie.email_contact|default:"contact@commune.cm" }}</p>
+                <p style="font-size: 14px; margin: 12px 0;"><span style="color: #94a3b8; font-weight: bold; width: 80px; display: inline-block;">Adresse :</span> {{ mairie.adresse_physique|default:"Hôtel de Ville" }}</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- PIED DE PAGE -->
+    <footer style="text-align: center; padding: 30px; color: #94a3b8; margin-top: 60px; background: #1e293b;">
+        <p style="margin: 0; font-size: 14px;">&copy; 2026 - Plateforme Institutionnelle pilotée par l'Association SADDUR.</p>
+        <p style="font-size: 12px; color: #64748b; margin-top: 5px; margin-bottom: 0;">Transition Numérique et Gouvernance Locale au Cameroun.</p>
+    </footer>
+
+</body>
+</html>

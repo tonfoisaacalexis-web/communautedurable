@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communautedurable.cm - Portail National</title>
+    <!-- Lien vers notre feuille de style locale -->
+    <link rel="stylesheet" href="{% static 'territoire/css/styles_public.css' %}">
+</head>
+<body>
+
+    <!-- EN-TÊTE PRINCIPAL -->
+    <header>
+        <h1>Communautedurable.cm</h1>
+        <p>Le territoire de demain, aujourd'hui</p>
+        <span class="badge">Phase Pilote : Vallée du Ntem</span>
+    </header>
+
+    <!-- BANDEAU DÉFILANT PERMANENT (STYLE COLEPS) -->
+    <div class="ticker-container">
+        <div class="ticker-title">SADDUR INFOS</div>
+        <div class="ticker-text-wrapper">
+            <p>
+                Portée par l'Association SADDUR (Siège d'Appui au Développement Durable) créer depuis l'année 2027, notre plateforme est le miroir numérique de l'ingénierie territoriale au Cameroun. Nous offrons à chaque commune une vitrine mondiale pour valoriser son action, attirer les investissements de la Diaspora et rapprocher l'administration des citoyens. &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp; [Phase Pilote] Déploiement réussi des communes de la Vallée du Ntem : Ambam, Kye-Ossi, Olamze et Ma'an.
+            </p>
+        </div>
+    </div>
+
+    <!-- CONTENEUR PRINCIPAL DES CARTES -->
+    <main class="container">
+        <section>
+            <h3>Découvrez les communes connectées</h3>
+
+            {% if mairies %}
+                <div class="grid">
+                    {% for mairie in mairies %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Mairie de {{ mairie.nom }}</h4>
+                                {% if mairie.armoiries %}
+                                    <img src="{{ mairie.armoiries.url }}" alt="Armoiries" style="height: 50px; object-fit: contain;">
+                                {% endif %}
+                            </div>
+
+                            <div class="card-body">
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                    {% if mairie.photo_du_maire %}
+                                        <img src="{{ mairie.photo_du_maire.url }}" alt="Maire" class="avatar">
+                                    {% endif %}
+                                    <div>
+                                        <p style="margin: 0; font-size: 12px; color: #94a3b8; font-weight: bold; text-transform: uppercase;">Exécutif Municipal</p>
+                                        <p style="margin: 0; font-weight: bold; color: #1e293b;">{{ mairie.nom_du_maire|default:"Non renseigné" }}</p>
+                                    </div>
+                                </div>
+                                <a href="{% url 'detail_mairie' slug=mairie.slug %}" class="btn">Visiter l'espace officiel</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div style="background-color: #fef3c7; border: 1px solid #fcd34d; padding: 20px; border-radius: 12px; text-align: center; color: #92400e;">
+                    <p style="margin: 0; font-weight: bold;">Aucune commune n'est encore déployée.</p>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+    <!-- PIED DE PAGE -->
+    <footer>
+        <p>&copy; 2026 - Plateforme Institutionnelle pilotée par l'Association SADDUR.</p>
+        <p style="font-size: 12px; color: #475569; margin-top: 5px;">Transition Numérique et Gouvernance Locale au Cameroun.</p>
+    </footer>
+
+</body>
+</html>
