@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404  # <-- L'import de "get_object_or_404" a été corrigé ici
+from django.shortcuts import render, get_object_or_404
 from .models import Mairie
 
 def index_public(request):
@@ -21,6 +21,8 @@ def detail_mairie(request, slug):
         'mairie': mairie,
     }
     return render(request, 'territoire/detail.html', context)
-    def presentation_cameroun(request):
+
+
+def presentation_cameroun(request):
     """Affiche l'espace institutionnel de présentation du Cameroun"""
     return render(request, 'territoire/cameroun.html')
