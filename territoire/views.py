@@ -8,7 +8,7 @@ def index_public(request):
     context = {
         'mairies': mairies,
         'titre_page': 'Communautedurable.cm - Portail National',
-        'slogan': 'Le territoire de demain, aujourd\'hui'
+        'slogan': "Le territoire de demain, aujourd'hui"
     }
     return render(request, 'territoire/index.html', context)
 
