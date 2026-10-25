@@ -10,6 +10,3 @@ python manage.py collectstatic --no-input
 
 # 3. Appliquer les migrations de la base de données
 python manage.py migrate
-
-# 4. Charger automatiquement le Cameroun si la base est neuve
-python manage.py charger_cameroun
