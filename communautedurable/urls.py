@@ -8,12 +8,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from territoire.views import index_public, detail_mairie  # <-- On importe bien les deux vues ici
+from territoire.views import index_public, detail_mairie, presentation_cameroun  # Fusion complète des imports
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index_public, name='accueil_public'),  # La racine du site web
-    path('mairie/<slug:slug>/', detail_mairie, name='detail_mairie'),  # <-- C'est cette ligne exacte qui manquait !
+    path('', index_public, name='accueil_public'),  # La racine publique du site web
+    path('mairie/<slug:slug>/', detail_mairie, name='detail_mairie'),  # Route dynamique des communes
+    path('republique-du-cameroun/', presentation_cameroun, name='presentation_cameroun'),  # Nouvel espace permanent national
 ]
 
 # Servir les fichiers médias (photos des maires et armoiries) en développement

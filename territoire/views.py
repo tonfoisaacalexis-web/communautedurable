@@ -21,3 +21,6 @@ def detail_mairie(request, slug):
         'mairie': mairie,
     }
     return render(request, 'territoire/detail.html', context)
+    def presentation_cameroun(request):
+    """Affiche l'espace institutionnel de présentation du Cameroun"""
+    return render(request, 'territoire/cameroun.html')
