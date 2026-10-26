@@ -8,3 +8,6 @@ python manage.py migrate
 
 # AJOUT : Crée le compte administrateur en ligne en lisant vos variables Render
 python manage.py createsuperuser --no-input || true
+
+# AJOUT : Charge le fichier de données JSON
+python manage.py loaddata territoire_data.json
