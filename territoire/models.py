@@ -58,6 +58,13 @@ class Mairie(models.Model):
     # Historique et Géographie locale
     histoire = models.TextField(blank=True, null=True)
     geographie = models.TextField(blank=True, null=True)
+
+    # Aspects socio-économiques et planification stratégique
+    aspect_socio_economique = models.TextField(blank=True, null=True, verbose_name="Aspect Socio-Économique")
+    vision_mairie = models.TextField(blank=True, null=True, verbose_name="Vision de la Commune")
+    projets_court_terme = models.TextField(blank=True, null=True, verbose_name="Projets à Court Terme")
+    projets_long_terme = models.TextField(blank=True, null=True, verbose_name="Projets à Long Terme")
+    partenaires_commune = models.TextField(blank=True, null=True, verbose_name="Partenaires au Développement")
     
     # Contacts
     email_contact = models.EmailField(blank=True, null=True)
@@ -98,3 +105,20 @@ class DocumentMunicipal(models.Model):
     class Meta:
         verbose_name = "Document Municipal"
         verbose_name_plural = "Documents Municipaux"
+
+
+class SuggestionCitoyenne(models.Model):
+    """Permet aux citoyens d'envoyer des suggestions et courriers officiels à la mairie"""
+    mairie = models.ForeignKey(Mairie, on_delete=models.CASCADE, related_name='suggestions')
+    nom_expediteur = models.CharField(max_length=150, verbose_name="Nom complet")
+    email_expediteur = models.EmailField(verbose_name="Adresse E-mail")
+    sujet = models.CharField(max_length=200, verbose_name="Sujet du message")
+    message = models.TextField(verbose_name="Message / Courrier")
+    date_envoi = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Suggestion de {self.nom_expediteur} pour {self.mairie.nom}"
+
+    class Meta:
+        verbose_name = "Boîte à suggestions"
+        verbose_name_plural = "Boîtes à suggestions"
