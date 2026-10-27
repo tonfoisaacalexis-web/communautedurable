@@ -1,32 +1,17 @@
-<!-- BLOC INTERACTIF OPENSTREETMAP SADDUR -->
+<!-- BLOC DE CARTOGRAPHIE INTERACTIF PROPRE (MÉTHODE IFRAME COMPATIBLE RENDER) -->
 <div class="manifeste" style="margin-top: 30px; padding: 20px;">
     <h3 style="margin-top: 0; color: #1e293b; font-size: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; font-weight: 700;">🗺️ Localisation de l'Hôtel de Ville</h3>
     
-    <!-- Zone d'affichage de la carte -->
-    <div id="map-commune" style="height: 250px; width: 100%; border-radius: 12px; margin-top: 15px; border: 1px solid #e2e8f0; z-index: 1;"></div>
-
-    <!-- Scripts de chargement sécurisés Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com" />
-    <script src="https://unpkg.com"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Récupération des coordonnées dynamiques du modèle ou valeurs par défaut
-            var lat = {{ mairie.latitude|default:2.3833 }};
-            var lon = {{ mairie.longitude|default:11.2833 }};
-            
-            // Initialisation de la carte Leaflet
-            var map = L.map('map-commune').setView([lat, lon], 13);
-
-            // Application des tuiles OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap'
-            }).addTo(map);
-
-            // Ajout du marqueur
-            L.marker([lat, lon]).addTo(map)
-                .bindPopup('<b>Hôtel de Ville de {{ mairie.nom }}</b><br>Services administratifs connectés.')
-                .openPopup();
-        });
-    </script>
+    <div style="width: 100%; height: 260px; border-radius: 12px; overflow: hidden; margin-top: 15px; border: 1px solid #e2e8f0;">
+        <iframe 
+            width="100%" 
+            height="100%" 
+            frameborder="0" 
+            scrolling="no" 
+            marginheight="0" 
+            marginwidth="0" 
+            src="https://openstreetmap.org{{ mairie.longitude|default:11.2833 }}%2C{{ mairie.latitude|default:2.3833 }}%2C{{ mairie.longitude|default:11.2833 }}%2C{{ mairie.latitude|default:2.3833 }}&amp;layer=mapnik&amp;marker={{ mairie.latitude|default:2.3833 }}%2C{{ mairie.longitude|default:11.2833 }}"
+            style="border: 0;">
+        </iframe>
+    </div>
 </div>
