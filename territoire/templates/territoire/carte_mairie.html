@@ -1,8 +1,9 @@
-<!-- BLOC DE CARTOGRAPHIE INTERACTIF PROPRE (MÉTHODE IFRAME COMPATIBLE RENDER) -->
+<!-- BLOC DE CARTOGRAPHIE INTERACTIF RECTIFIÉ -->
 <div class="manifeste" style="margin-top: 30px; padding: 20px;">
     <h3 style="margin-top: 0; color: #1e293b; font-size: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; font-weight: 700;">🗺️ Localisation de l'Hôtel de Ville</h3>
     
     <div style="width: 100%; height: 260px; border-radius: 12px; overflow: hidden; margin-top: 15px; border: 1px solid #e2e8f0;">
+        <!-- L'URL contient désormais un décalage de calcul pour former un carré géographique valide autour des coordonnées de la mairie -->
         <iframe 
             width="100%" 
             height="100%" 
@@ -10,7 +11,7 @@
             scrolling="no" 
             marginheight="0" 
             marginwidth="0" 
-            src="https://openstreetmap.org{{ mairie.longitude|default:11.2833 }}%2C{{ mairie.latitude|default:2.3833 }}%2C{{ mairie.longitude|default:11.2833 }}%2C{{ mairie.latitude|default:2.3833 }}&amp;layer=mapnik&amp;marker={{ mairie.latitude|default:2.3833 }}%2C{{ mairie.longitude|default:11.2833 }}"
+            src="https://openstreetmap.org{{ mairie.longitude|default:11.2833|add:-0.01 }}%2C{{ mairie.latitude|default:2.3833|add:-0.01 }}%2C{{ mairie.longitude|default:11.2833|add:0.01 }}%2C{{ mairie.latitude|default:2.3833|add:0.01 }}&amp;layer=mapnik&amp;marker={{ mairie.latitude|default:2.3833 }}%2C{{ mairie.longitude|default:11.2833 }}"
             style="border: 0;">
         </iframe>
     </div>
