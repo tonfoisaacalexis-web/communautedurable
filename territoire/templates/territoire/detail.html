@@ -19,13 +19,15 @@
     <div class="header-detail" style="background: white; padding: 30px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 20px;">
         {% if mairie.armoiries %}
             <img src="{{ mairie.armoiries.url }}" alt="Armoiries {{ mairie.nom }}" style="height: 90px; width: 90px; object-fit: contain;">
+        {% else %}
+            <div style="font-size: 40px; background: #f1f5f9; padding: 15px; border-radius: 12px;">🏛️</div>
         {% endif %}
         <div>
             <span style="font-size: 12px; text-transform: uppercase; font-weight: bold; color: #059669; letter-spacing: 1px;">
                 Région du Sud &bull; {{ mairie.departement.nom }}
             </span>
             <h1 style="margin: 5px 0 0 0; font-size: 36px; color: #1e293b; font-weight: 800;">Mairie de {{ mairie.nom }}</h1>
-            <p style="margin: 5px 0 0 0; color: #64748b; font-size: 16px;">Les services publics connectés de votre municipalité</p>
+            <p style="margin: 5px 0 0 0; color: #64748b; font-size: 16px;">Services publics connectés et attractivité territoriale</p>
         </div>
     </div>
 
@@ -34,7 +36,7 @@
         <div class="ticker-title">INFOS MUNICIPALES</div>
         <div class="ticker-text-wrapper">
             <p>
-                Bienvenue sur la vitrine officielle de la Mairie de {{ mairie.nom }}. Retrouvez en temps réel les avis d'appels d'offres, les opportunités d'investissement territoriales et les bulletins municipaux de votre collectivité locale. &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp; Programme d'accompagnement à la transition numérique mené par l'Association SADDUR.
+                Bienvenue sur la vitrine officielle de la Mairie de {{ mairie.nom }}. Cet espace numérique centralise les indicateurs territoriaux et rapproche l'administration locale des citoyens et de la Diaspora. &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp; Programme d'accompagnement mené par l'Association SADDUR.
             </p>
         </div>
     </div>
@@ -42,64 +44,80 @@
     <!-- CORPS DE LA PAGE -->
     <main class="container layout-detail">
         
-        <!-- ================= COLONNE DE GAUCHE : TEXTES STRATÉGIQUES ================= -->
+        <!-- COLONNE DE GAUCHE : TEXTES STRATÉGIQUES (AFFICHAGE DYNAMIQUE) -->
         <div>
-            <!-- MOT DU MAIRE -->
+            <!-- BLOC MAIRE : TOUJOURS AFFICHÉ -->
             <div class="manifeste">
                 <h2 style="margin-top: 0; color: #0f172a; border-bottom: 2px solid #059669; display: inline-block; padding-bottom: 5px;">Le Mot de l'Exécutif Municipal</h2>
                 <div style="display: flex; gap: 20px; align-items: start; margin-top: 20px;">
                     {% if mairie.photo_du_maire %}
                         <img src="{{ mairie.photo_du_maire.url }}" alt="Maire de {{ mairie.nom }}" style="width: 120px; height: 120px; border-radius: 12px; object-fit: cover; border: 1px solid #cbd5e1;">
+                    {% else %}
+                        <div style="width: 120px; height: 120px; border-radius: 12px; background-color: #cbd5e1; display: flex; align-items: center; justify-content: center; font-size: 40px;">👤</div>
                     {% endif %}
                     <div>
-                        <h3 style="margin: 0; color: #1e293b; font-size: 20px;">{{ mairie.nom_du_maire|default:"Monsieur le Maire" }}</h3>
+                        <h3 style="margin: 0; color: #1e293b; font-size: 20px;">{{ mairie.nom_du_maire|default:"Nom du Maire non renseigné" }}</h3>
                         <p style="margin: 0; font-size: 12px; color: #94a3b8; text-transform: uppercase; font-weight: bold;">Maire de la Commune</p>
-                        <p style="color: #475569; line-height: 1.6; font-style: italic; margin-top: 15px;">&ldquo; {{ mairie.mot_du_maire|default:"Bienvenue sur la vitrine numérique officielle de notre commune. Nous construisons ensemble un territoire connecté." }} &rdquo;</p>
+                        <p style="color: #475569; line-height: 1.6; font-style: italic; margin-top: 15px;">
+                            &ldquo; {{ mairie.mot_du_maire|default:"Bienvenue sur la vitrine numérique officielle de notre municipalité. Nous travaillons en étroite collaboration avec l'Association SADDUR pour structurer l'arborescence des informations de notre territoire." }} &rdquo;
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- VISION & DYNAMIQUE SOCIO-ÉCONOMIQUE -->
+            <!-- VISION ET ÉCONOMIE : UNIQUEMENT SI REMPLI -->
+            {% if mairie.vision_mairie or mairie.aspect_socio_economique %}
             <div class="manifeste">
                 <h2 style="margin-top: 0; color: #0f172a; border-bottom: 2px solid #059669; display: inline-block; padding-bottom: 5px;">Vision & Dynamique Socio-Économique</h2>
-                <h4 style="color: #1e293b; margin-top: 15px; margin-bottom: 5px; font-weight: 700;">Vision de la municipalité</h4>
-                <p>{{ mairie.vision_mairie|default:"La feuille de route stratégique pour l'émergence durable de cette commune est en cours d'intégration." }}</p>
-                
-                <h4 style="color: #1e293b; margin-top: 15px; margin-bottom: 5px; font-weight: 700;">Potentiel Économique et Social</h4>
-                <p>{{ mairie.aspect_socio_economique|default:"Les données liées au tissu commercial, agricole et aux infrastructures sociales sont en cours de validation." }}</p>
+                {% if mairie.vision_mairie %}
+                    <h4 style="color: #1e293b; margin-top: 15px; margin-bottom: 5px; font-weight: 700;">Vision de la municipalité</h4>
+                    <p>{{ mairie.vision_mairie }}</p>
+                {% endif %}
+                {% if mairie.aspect_socio_economique %}
+                    <h4 style="color: #1e293b; margin-top: 15px; margin-bottom: 5px; font-weight: 700;">Potentiel Économique et Social</h4>
+                    <p>{{ mairie.aspect_socio_economique }}</p>
+                {% endif %}
             </div>
+            {% endif %}
 
-            <!-- INCLUSION DU FICHIER PROJETS DE LA COMMUNE -->
-            {% include 'territoire/projets_mairie.html' %}
+            <!-- PROJETS : INCLUS UNIQUEMENT SI LE MAIRE EN FOURNIT -->
+            {% if mairie.projets_court_terme or mairie.projets_long_terme %}
+                {% include 'territoire/projets_mairie.html' %}
+            {% endif %}
 
-            <!-- SECTION HISTOIRE & GEOGRAPHIE -->
+            <!-- HISTOIRE ET GÉOGRAPHIE : UNIQUEMENT SI REMPLI -->
+            {% if mairie.geographie or mairie.histoire %}
             <div class="manifeste">
                 <h2 style="margin-top: 0; color: #0f172a; border-bottom: 2px solid #059669; display: inline-block; padding-bottom: 5px;">Histoire, Culture et Géographie</h2>
-                <div style="color: #475569; line-height: 1.7; margin-top: 15px;">
+                {% if mairie.geographie %}
                     <h4 style="color: #1e293b; margin-bottom: 5px; font-size: 16px; font-weight: 700;">Présentation du territoire</h4>
-                    <p style="margin-bottom: 20px;">{{ mairie.geographie|default:"Les données géographiques et les limites territoriales de cette municipalité sont en cours de validation." }}</p>
-                    
+                    <p>{{ mairie.geographie }}</p>
+                {% endif %}
+                {% if mairie.histoire %}
                     <h4 style="color: #1e293b; margin-bottom: 5px; font-size: 16px; font-weight: 700;">Patrimoine, Traditions et Origines</h4>
-                    <p>{{ mairie.histoire|default:"L'historique, les traditions et les spécificités des peuples locaux sont en cours de rédaction." }}</p>
-                </div>
+                    <p>{{ mairie.histoire }}</p>
+                {% endif %}
             </div>
+            {% endif %}
         </div>
 
-        <!-- ================= COLONNE DE DROITE : BARRE LATÉRALE ================= -->
+        <!-- COLONNE DE DROITE : BARRE LATÉRALE FONCTIONNELLE -->
         <div>
-            <!-- BLOC POTENTIEL SADDUR -->
+            <!-- BLOC ACCUEIL SADDUR -->
             <div class="sidebar-dark">
-                <h3>Potentiel de Développement</h3>
-                <p>L'association SADDUR accompagne activement cette collectivité locale dans la valorisation de ses richesses.</p>
-                <hr style="border: 0; border-top: 1px solid #064e3b; margin: 15px 0;">
-                <h4 style="color: #34d399; margin: 0 0 10px 0; font-size: 14px; font-weight: 700;">Partenaires au Développement :</h4>
-                <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5;">{{ mairie.partenaires_commune|default:"Association SADDUR, Services Déconcentrés de l'État." }}</p>
+                <h3>Partenariat SADDUR</h3>
+                <p>L'association SADDUR accompagne les communes du Cameroun dans l'ingénierie, la gouvernance locale et la transition numérique durable.</p>
+                {% if mairie.partenaires_commune %}
+                    <hr style="border: 0; border-top: 1px solid #064e3b; margin: 15px 0;">
+                    <h4 style="color: #34d399; margin: 0 0 10px 0; font-size: 14px; font-weight: 700;">Partenaires :</h4>
+                    <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5;">{{ mairie.partenaires_commune }}</p>
+                {% endif %}
             </div>
 
             <!-- INCLUSION DU FORMULAIRE DE LA BOÎTE À SUGGESTIONS -->
             {% include 'territoire/formulaire_suggestion.html' %}
 
-            <!-- BLOC DES DOCUMENTS ET PDF TÉLÉCHARGEABLES -->
+            <!-- DOCUMENTS ET PDF -->
             <div class="manifeste" style="margin-top: 30px; padding: 20px;">
                 <h3 style="margin-top: 0; color: #1e293b; font-size: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; font-weight: 700;">Bulletins & Documents Officiels</h3>
                 {% if mairie.documents.all %}
@@ -115,16 +133,8 @@
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p style="font-size: 13px; color: #94a3b8; margin-top: 15px; font-style: italic; text-align: center;">Aucun document officiel téléversé.</p>
+                    <p style="font-size: 13px; color: #94a3b8; margin-top: 15px; font-style: italic; text-align: center;">Aucun document officiel public disponible pour le moment.</p>
                 {% endif %}
-            </div>
-
-            <!-- BLOC CONTACTS -->
-            <div class="manifeste" style="margin-top: 30px; padding: 20px;">
-                <h3 style="margin-top: 0; color: #1e293b; font-size: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; font-weight: 700;">Contacts Officiels</h3>
-                <p style="font-size: 14px; margin: 12px 0;"><span style="color: #94a3b8; font-weight: bold; width: 80px; display: inline-block;">Téléphone :</span> {{ mairie.telephone|default:"Non renseigné" }}</p>
-                <p style="font-size: 14px; margin: 12px 0;"><span style="color: #94a3b8; font-weight: bold; width: 80px; display: inline-block;">E-mail :</span> {{ mairie.email_contact|default:"contact@commune.cm" }}</p>
-                <p style="font-size: 14px; margin: 12px 0;"><span style="color: #94a3b8; font-weight: bold; width: 80px; display: inline-block;">Adresse :</span> {{ mairie.adresse_physique|default:"Hôtel de Ville" }}</p>
             </div>
         </div>
     </main>

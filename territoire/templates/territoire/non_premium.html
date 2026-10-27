@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace en attente d'activation - {{ mairie.nom }}</title>
+    <link rel="stylesheet" href="{% static 'territoire/css/styles_public.css' %}">
+</head>
+<body style="background-color: #f8fafc; font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box;">
+
+    <div style="max-width: 550px; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border-top: 8px solid #df0a13;">
+        
+        <span style="font-size: 50px;">🇨🇲</span>
+        <h1 style="color: #1e293b; font-size: 26px; margin-top: 15px; margin-bottom: 5px; font-weight: 800;">Mairie de {{ mairie.nom }}</h1>
+        <p style="color: #df0a13; font-weight: bold; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; margin-top: 0;">Espace Territorial Non Activé</p>
+        
+        <div style="background-color: #fffbeb; border: 1px solid #fef3c7; padding: 20px; border-radius: 12px; text-align: left; margin: 25px 0; color: #92400e; font-size: 14px; line-height: 1.6;">
+            <strong>Avis aux Services Municipaux :</strong><br>
+            La vitrine numérique et les services connectés (Boîte à suggestions, Plan de Développement, Téléchargement des Actes Municipaux) de la Commune de {{ mairie.nom }} sont temporairement suspendus. 
+        </div>
+
+        <p style="color: #475569; font-size: 15px; line-height: 1.6; margin-bottom: 30px;">
+            Pour activer cet espace institutionnel mondial et permettre à vos citoyens ainsi qu'à la Diaspora d'interagir avec l'exécutif municipal, veuillez régulariser votre convention d'accompagnement auprès de l'<strong>Association SADDUR</strong>.
+        </p>
+
+        <a href="mailto:contact@communautedurable.cm" style="display: block; background-color: #047857; color: white; padding: 14px 20px; border-radius: 50px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-size: 13px; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(4, 120, 87, 0.2);">
+            Contacter la Cellule de Déploiement SADDUR
+        </a>
+
+        <a href="{% url 'accueil_public' %}" style="display: inline-block; margin-top: 20px; color: #64748b; font-size: 13px; font-weight: 600; text-decoration: none;">
+            &larr; Retour au Portail National
+        </a>
+    </div>
+
+</body>
+</html>

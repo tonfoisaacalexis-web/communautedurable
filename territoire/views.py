@@ -13,9 +13,15 @@ def index_public(request):
     return render(request, 'territoire/index.html', context)
 
 def detail_mairie(request, slug):
-    """Affiche la page de détails d'une commune avec gestion de la boîte à suggestions"""
+    """Affiche la page de détails ou bloque l'accès si la mairie n'est pas Premium"""
     mairie = get_object_or_404(Mairie, slug=slug)
     
+    # VERROU COMMERCIAL SADDUR
+    if not mairie.est_premium:
+        # Si la mairie n'a pas payé, on affiche une page de blocage élégante
+        return render(request, 'territoire/non_premium.html', {'mairie': mairie})
+        
+    # Si la mairie est Premium, le code ci-dessous s'exécute normalement
     if request.method == "POST":
         nom = request.POST.get('nom')
         email = request.POST.get('email')
@@ -36,7 +42,3 @@ def detail_mairie(request, slug):
         'mairie': mairie,
     }
     return render(request, 'territoire/detail.html', context)
-
-def presentation_cameroun(request):
-    """Affiche la page de présentation nationale de la République"""
-    return render(request, 'territoire/cameroun.html')
