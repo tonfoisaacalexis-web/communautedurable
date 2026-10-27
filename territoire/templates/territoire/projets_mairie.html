@@ -1,0 +1,9 @@
+<!-- BLOC DE PLANIFICATION DES PROJETS ISOLE -->
+<div class="manifeste">
+    <h2 style="margin-top: 0; color: #0f172a; border-bottom: 2px solid #059669; display: inline-block; padding-bottom: 5px;">Plan de Développement Communal</h2>
+    <h4 style="color: #047857; margin-top: 15px; margin-bottom: 5px; font-weight: 700;">🚀 Projets à Court Terme (Réalisations immédiates)</h4>
+    <p>{{ mairie.projets_court_terme|default:"La planification des chantiers prioritaires à l'échelle de l'arrondissement est en cours." }}</p>
+    
+    <h4 style="color: #1e3a8a; margin-top: 15px; margin-bottom: 5px; font-weight: 700;">⏳ Vision et Projets à Long Terme</h4>
+    <p>{{ mairie.projets_long_terme|default:"Les grands chantiers structurels et environnementaux d'horizon décennal sont en cours d'analyse." }}</p>
+</div>

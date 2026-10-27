@@ -1,0 +1,25 @@
+<!-- BOÎTE À SUGGESTIONS (FORMULAIRE DE COURRIER CITOYEN ISOLE) -->
+<div class="manifeste" style="margin-top: 30px; padding: 20px;">
+    <h3 style="margin-top: 0; color: #1e293b; font-size: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; font-weight: 700;">📨 Boîte à suggestions & Courriers</h3>
+    
+    <form method="POST" style="margin-top: 15px;">
+        {% csrf_token %} <!-- Sécurité Django -->
+        <div style="margin-bottom: 12px;">
+            <label style="display:block; font-size:12px; font-weight:bold; margin-bottom:4px; color:#475569;">Votre nom complet :</label>
+            <input type="text" name="nom" required style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 12px;">
+            <label style="display:block; font-size:12px; font-weight:bold; margin-bottom:4px; color:#475569;">Votre adresse e-mail :</label>
+            <input type="email" name="email" required style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 12px;">
+            <label style="display:block; font-size:12px; font-weight:bold; margin-bottom:4px; color:#475569;">Sujet du courrier :</label>
+            <input type="text" name="sujet" required style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label style="display:block; font-size:12px; font-weight:bold; margin-bottom:4px; color:#475569;">Votre message / suggestion :</label>
+            <textarea name="message" rows="4" required style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing: border-box; resize: vertical;"></textarea>
+        </div>
+        <button type="submit" style="width:100%; background-color:#059669; color:white; border:none; padding:12px; font-weight:bold; border-radius:8px; cursor:pointer;">Envoyer le courrier officiel</button>
+    </form>
+</div>
