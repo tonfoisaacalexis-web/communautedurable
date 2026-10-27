@@ -44,6 +44,8 @@ class Mairie(models.Model):
     departement = models.ForeignKey(Departement, on_delete=models.CASCADE, related_name='mairies')
     nom = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, unique=True, blank=True)
+    latitude = models.FloatField(blank=True, null=True, default=2.3833, help_text="Ex: 2.3833 pour Ambam")
+    longitude = models.FloatField(blank=True, null=True, default=11.2833, help_text="Ex: 11.2833 pour Ambam")
     
     # Informations institutionnelles
     nom_du_maire = models.CharField(max_length=200, blank=True, null=True)
