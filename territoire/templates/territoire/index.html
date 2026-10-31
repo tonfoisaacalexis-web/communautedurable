@@ -14,7 +14,6 @@
     <header>
         <h1>Communautedurable.cm</h1>
         <p>Le territoire de demain, aujourd'hui</p>
-        <span class="badge">Phase Pilote : Vallée du Ntem</span>
     </header>
 
     <!-- BANDEAU DÉFILANT PERMANENT (STYLE COLEPS) -->
@@ -22,15 +21,36 @@
         <div class="ticker-title">SADDUR INFOS</div>
         <div class="ticker-text-wrapper">
             <p>
-                Portée par l'Association SADDUR (Siège d'Appui au Développement Durable) créée depuis l'année 2027, notre plateforme est le miroir numérique de l'ingénierie territoriale au Cameroun. Nous offrons à chaque commune une vitrine mondiale pour valoriser son action, attirer les investissements de la Diaspora et rapprocher l'administration des citoyens. &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp; [Phase Pilote] Déploiement réussi des communes de la Vallée du Ntem : Ambam, Kye-Ossi, Olamze et Ma'an.
+                Portée par l'Association SADDUR (Siège d'Appui au Développement Durable) créée depuis l'année 2027, notre plateforme est le miroir numérique de l'ingénierie territoriale au Cameroun. Nous offrons à chaque commune une vitrine mondiale pour valoriser son action, attirer les investissements de la Diaspora et rapprocher l'administration des citoyens. &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp; Déploiement progressif des espaces numériques officiels pour les communes engagées dans la transition durable au Cameroun.
             </p>
         </div>
     </div>
 
-    <!-- ACCÈS AU PORTAIL NATIONAL DE LA RÉPUBLIQUE (PLANCÉ AU BON ENDROIT) -->
-    <div style="margin: 30px auto; text-align: center; max-width: 600px; padding: 0 20px;">
+    <!-- ACCÈS AU PORTAIL NATIONAL DE LA RÉPUBLIQUE -->
+    <div style="margin: 30px auto 20px auto; text-align: center; max-width: 600px; padding: 0 20px;">
         <a href="{% url 'presentation_cameroun' %}" style="display: block; background: linear-gradient(135deg, #047857, #df0a13); color: white; padding: 16px 30px; border-radius: 50px; font-size: 15px; font-weight: bold; text-decoration: none; box-shadow: 0 10px 20px rgba(223, 10, 19, 0.25); text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s ease;">
             🇨🇲 Explorer la Présentation Générale & Grands Projets
+        </a>
+    </div>
+
+    <!-- ACCÈS À L'ACADÉMIE ACADÉMIE AGROPASTORALE SADDUR -->
+    <div style="margin-top: 0; margin-bottom: 20px; text-align: center;">
+        <a href="{% url 'academie_public' %}" style="display: inline-block; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px 30px; border-radius: 50px; font-size: 15px; font-weight: bold; text-decoration: none; box-shadow: 0 10px 20px rgba(5, 150, 105, 0.2); text-transform: uppercase; letter-spacing: 0.5px; width: 100%; max-width: 540px; box-sizing: border-box;">
+            🌱 SADDUR ACADÉMIE : ESPACE ENTREPRENEURIAT AGROPASTORAL
+        </a>
+    </div>
+
+    <!-- NOUVEAU : ACCÈS À LA VITRINE COMMERCIALE NATIONALE -->
+    <div style="margin-top: 0; margin-bottom: 35px; text-align: center;">
+        <a href="{% url 'marche_national_public' %}" style="display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 15px 30px; border-radius: 50px; font-size: 15px; font-weight: bold; text-decoration: none; box-shadow: 0 10px 20px rgba(217, 119, 6, 0.2); text-transform: uppercase; letter-spacing: 0.5px; width: 100%; max-width: 540px; box-sizing: border-box;">
+            🛒 VITRINE NATIONALE : ESPACE ENTREPRENEURS & CONSOMMATEURS
+        </a>
+    </div>
+
+    <!-- ACCÈS À LA FOIRE INTER-COMMUNES DU CAMEROUN -->
+    <div style="margin-top: 0; margin-bottom: 35px; text-align: center;">
+        <a href="{% url 'foire_nationale_public' %}" style="display: inline-block; background: linear-gradient(135deg, #1e3a8a, #0b2545); color: white; padding: 15px 30px; border-radius: 50px; font-size: 15px; font-weight: bold; text-decoration: none; box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2); text-transform: uppercase; letter-spacing: 0.5px; width: 100%; max-width: 540px; box-sizing: border-box;">
+            🎪 FOIRE NATIONALE : PAVILLONS DES COMMUNES & BAILLEURS
         </a>
     </div>
 

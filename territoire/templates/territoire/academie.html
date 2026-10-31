@@ -1,0 +1,108 @@
+{% load static %}
+{% load youtube_filters %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Académie Agropastorale Connectée - SADDUR</title>
+    <link rel="stylesheet" href="{% static 'territoire/css/styles_public.css' %}">
+    <style>
+        .badge-niveau {
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 50px;
+            align-self: start;
+            text-transform: uppercase;
+        }
+        .badge-debutant { background-color: #fef3c7; color: #b45309; }
+        .badge-intermediaire { background-color: #dcfce7; color: #15803d; }
+        .badge-avance { background-color: #dbeafe; color: #1e40af; }
+    </style>
+</head>
+<body style="background-color: #f8fafc;">
+
+    <!-- BARRE DE NAVIGATION INTERACTIVE -->
+    <nav style="background-color: #065f46; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="{% url 'accueil_public' %}" style="color: white; text-decoration: none; font-weight: bold;">&larr; Retour au Portail National</a>
+        
+        <div style="display: flex; align-items: center; gap: 15px;">
+            {% if user.is_authenticated %}
+                <span style="color: #a7f3d0; font-size: 13px; font-weight: bold;">👋 Espace Étudiant : {{ user.username }}</span>
+                <a href="{% url 'deconnexion_academie' %}" style="color: white; background-color: #b91c1c; text-decoration: none; font-size: 12px; font-weight: bold; padding: 6px 12px; border-radius: 6px;">Déconnexion</a>
+            {% else %}
+                <a href="{% url 'connexion_academie' %}" style="color: #065f46; background-color: white; text-decoration: none; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">Espace Étudiant</a>
+            {% endif %}
+        </div>
+    </nav>
+
+   <!-- EN-TÊTE DE L'ACADÉMIE -->
+    <header style="background: linear-gradient(135deg, #065f46, #047857); padding: 5px 20px 40px 20px; color: white; text-align: center;">
+        <span style="font-size: 40px;">⚡</span>
+        <h1 style="margin: 10px 0; font-size: 32px; font-weight: 800;">Académie de l'Entrepreneuriat Agropastoral</h1>
+        <p style="margin: 0; color: #a7f3d0; font-size: 16px; max-width: 700px; margin: 0 auto; line-height: 1.5;">
+            Propulsé par l'Association SADDUR. Nous formons la jeunesse camerounaise aux techniques agricoles et entrepreneuriales modernes pour créer les agro-industries de demain.
+        </p>
+    </header>
+
+    <!-- CONTENEUR PRINCIPAL -->
+    <main class="container" style="margin-top: 40px; max-width: 1100px; padding: 0 20px;">
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div style="background-color: #dcfce7; border: 1px solid #22c55e; color: #166534; padding: 15px; border-radius: 12px; font-size: 14px; font-weight: bold; margin-bottom: 30px; text-align: center;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <h2 style="color: #1e293b; border-bottom: 2px solid #10b981; display: inline-block; padding-bottom: 5px; margin-bottom: 30px;">Nos Programmes Disponibles</h2>
+
+        <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+            
+            {% if formations %}
+                {% for formation in formations %}
+                    <div class="card" style="background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column;">
+                        {% if formation.image_couverture %}
+                            <img src="{{ formation.image_couverture.url }}" alt="{{ formation.titre }}" style="height: 180px; width: 100%; object-fit: cover;">
+                        {% else %}
+                            <div style="height: 180px; background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 50px;">🌱</div>
+                        {% endif %}
+                        
+                        <div style="padding: 25px; flex-grow: 1; display: flex; flex-direction: column;">
+                            <span class="badge-niveau {% if formation.niveau == 'DEBUTANT' %}badge-debutant{% elif formation.niveau == 'INTERMEDIAIRE' %}badge-intermediaire{% else %}badge-avance{% endif %}">
+                                {{ formation.get_niveau_display }}
+                            </span>
+                            
+                            <h3 style="color: #1e293b; font-size: 18px; margin: 15px 0 10px 0; font-weight: 700;">{{ formation.titre }}</h3>
+                            <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; flex-grow: 1;">
+                                {{ formation.description|truncatewords:40 }}
+                            </p>
+                            
+                            <div style="border-top: 1px solid #f1f5f9; padding-top: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #475569; font-weight: 600;">
+                                <span>⏳ Durée: {{ formation.duree_estimee }}</span>
+                                <span style="color: #059669;">WhatsApp inclus</span>
+                            </div>
+
+                            <!-- INCLUSION DU FRAGMENT DÉCOUPÉ DU FLUX DE SESSION -->
+                            {% include 'territoire/session_academie.html' %}
+                            
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div style="grid-column: 1 / -1; background-color: #fffbeb; border: 1px solid #fef3c7; padding: 30px; border-radius: 12px; text-align: center; color: #b45309;">
+                    <p style="margin: 0; font-weight: bold; font-size: 16px;">Le catalogue des formations est en cours de déploiement.</p>
+                </div>
+            {% endif %}
+
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 30px; color: #94a3b8; margin-top: 60px; background: #1e293b;">
+        <p style="margin: 0; font-size: 14px;">&copy; 2026 - Académie Agropastorale pilotée par l'Association SADDUR.</p>
+    </footer>
+
+</body>
+</html>

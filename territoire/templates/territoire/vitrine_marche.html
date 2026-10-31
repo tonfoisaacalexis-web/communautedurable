@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Vitrine Nationale des Producteurs - SADDUR</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; }
+        .search-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto 30px auto; border-top: 6px solid #059669; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; }
+        .btn-wa { background-color: #25d366; color: white; text-decoration: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; display: inline-block; font-size: 13px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="search-box">
+        <h2 style="color: #1e293b; margin-top: 0;">🔍 Banque de Données Permanente des Producteurs</h2>
+        <p style="color: #64748b; font-size: 14px;">Trouvez instantanément la liste des vendeurs disponibles pour un produit dans votre localité au Cameroun.</p>
+        
+        <form method="GET" style="display: flex; gap: 15px;">
+            <input type="text" name="produit" value="{{ produit_recherche }}" placeholder="Nom du produit (Ex: Manioc, Poulet)" required style="flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <input type="text" name="ville" value="{{ ville_recherche }}" placeholder="Votre Ville (Ex: Ambam, Douala)" required style="flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <button type="submit" style="background-color: #059669; color: white; border: none; padding: 12px 25px; font-weight: bold; border-radius: 6px; cursor: pointer;">Rechercher</button>
+        </form>
+    </div>
+
+    <div class="grid">
+        {% if resultats %}
+            {% if recherche_elargie %}
+                <div style="grid-column: 1/-1; background-color: #fffbeb; border: 1px solid #fef3c7; padding: 15px; border-radius: 8px; color: #b45309; font-weight: bold; text-align: center;">
+                    ⚠️ Aucun stock disponible précisément à "{{ ville_recherche }}". Voici les stocks disponibles dans les localités les plus proches :
+                </div>
+            {% endif %}
+
+            {% for article in resultats %}
+                <div class="card">
+                    <h3 style="color: #065f46; margin-top: 0; font-size: 18px;">📦 {{ article.nom_produit }}</h3>
+                    <p style="font-size: 20px; font-weight: 800; color: #1e293b; margin: 10px 0;">{{ article.prix_unitaire }} FCFA</p>
+                    <hr style="border: none; border-top: 1px dashed #e2e8f0; margin: 15px 0;">
+                    <p style="font-size: 13px; color: #475569; margin: 5px 0;"><b>👤 Vendeur (Qui) :</b> {{ article.entrepreneur.nom_entreprise }} ({{ article.entrepreneur.nom_complet }})</p>
+                    <p style="font-size: 13px; color: #475569; margin: 5px 0;"><b>📍 Stock (Où) :</b> {{ article.localite_stock }}</p>
+                    <p style="font-size: 13px; color: #475569; margin: 5px 0;"><b>⏳ Dispo (Quand) :</b> {{ article.disponibilite_temps }}</p>
+                    <p style="font-size: 13px; color: #475569; margin: 5px 0;"><b>🚚 Transit (Comment) :</b> {{ article.mode_livraison }}</p>
+                    <p style="font-size: 13px; color: #475569; margin: 5px 0;"><b>📊 Stock réel :</b> {{ article.quantite_disponible }}</p>
+                    <a href="https://wa.me{{ article.entrepreneur.telephone_whatsapp }}" target="_blank" class="btn-wa">💬 Contacter le Producteur</a>
+                </div>
+            {% endfor %}
+        {% elif produit_recherche %}
+            <div style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px;">
+                ❌ Aucun producteur enregistré pour le produit "{{ produit_recherche }}" pour le moment.
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

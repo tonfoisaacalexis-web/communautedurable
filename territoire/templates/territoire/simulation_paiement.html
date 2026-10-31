@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guichet Sécurisé Orange Money - SADDUR</title>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .guichet-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            border-top: 8px solid #ff6600;
+            box-sizing: border-box;
+        }
+        .om-logo {
+            background-color: #ff6600;
+            color: white;
+            display: inline-block;
+            padding: 6px 16px;
+            font-weight: 900;
+            border-radius: 4px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            width: 100%;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: transform 0.1s ease;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn-success { background-color: #10b981; margin-bottom: 12px; }
+        .btn-danger { background-color: #ef4444; }
+    </style>
+</head>
+<body>
+
+    <div class="guichet-card">
+        <!-- Logo Orange Money -->
+        <div class="om-logo">orange money</div>
+        
+        <h2 style="color: #1f2937; margin: 0 0 8px 0; font-size: 22px; font-weight: 800;">Académie SADDUR</h2>
+        <p style="color: #6b7280; font-size: 13px; margin: 0 0 20px 0;">Référence : <code style="color: #374151; font-weight: bold;">{{ inscription.reference_transaction }}</code></p>
+        
+        <!-- Bloc Tarif Débité -->
+        <div style="background-color: #f9fafb; padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px solid #f3f4f6;">
+            <span style="color: #4b5563; font-size: 13px; display: block; margin-bottom: 4px;">Montant à débiter</span>
+            <span style="color: #111827; font-size: 24px; font-weight: 800;">{{ inscription.formation.tarif }} FCFA</span>
+        </div>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <p style="font-size: 13px; color: #4b5563; line-height: 1.5; margin-bottom: 20px;">
+                Simulation de l'API de paiement Orange Money pour le numéro titulaire SADDUR <b>699 41 82 22</b>.
+            </p>
+            
+            <!-- Choix des actions utilisateur -->
+            <button type="submit" name="action" value="REUSSITE" class="btn btn-success">
+                ✅ Confirmer le débit (Succès)
+            </button>
+            
+            <button type="submit" name="action" value="ANNULATION" class="btn btn-danger">
+                ❌ Annuler la transaction (Échec)
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>

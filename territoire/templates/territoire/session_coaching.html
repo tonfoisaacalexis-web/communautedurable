@@ -1,0 +1,72 @@
+{% load youtube_filters %}
+
+<!-- 1. L'ÉLÈVE EST CONNECTÉ : ESPACE DE COURS ET COACHING WHATSAPP -->
+<div style="background-color: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; text-align: left;">
+    
+    <!-- BLOC DE COACHING SYNCHRONE INTERACTIF SADDUR -->
+    <div style="background: linear-gradient(135deg, #128c7e, #075e54); color: white; padding: 18px; border-radius: 10px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(18,140,126,0.15); font-family: system-ui, sans-serif;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <span style="font-size: 20px;">💬</span>
+            <h4 style="margin: 0; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Coaching Synchrone SADDUR</h4>
+        </div>
+        <p style="margin: 0 0 15px 0; font-size: 13px; color: #e8f5e9; line-height: 1.4;">
+            Votre formateur anime une session interactive de questions/réponses en direct <b>2 soirs par semaine (1 heure)</b> et corrige vos exercices pratiques sur le terrain.
+        </p>
+        {% if formation.lien_groupe_whatsapp %}
+            <a href="{{ formation.lien_groupe_whatsapp }}" target="_blank" style="display: inline-flex; align-items: center; background-color: white; color: #075e54; text-decoration: none; font-size: 13px; font-weight: bold; padding: 10px 20px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                🟢 REJOINDRE LE GROUPE PRIVÉ (COHORTE 1) &rarr;
+            </a>
+        {% else %}
+            <span style="font-size: 12px; font-style: italic; color: #a7f3d0; display: block; background-color: rgba(0,0,0,0.1); padding: 8px; border-radius: 4px; text-align: center;">
+                🔒 Le lien d'accès à la cohorte WhatsApp est en cours de configuration par votre formateur.
+            </span>
+        {% endif %}
+    </div>
+
+    <h4 style="color: #065f46; margin: 0 0 15px 0; font-size: 14px; font-weight: 700; border-bottom: 1px dashed #cbd5e1; padding-bottom: 8px; font-family: system-ui, sans-serif;">📋 Syllabus et Fiches du cours :</h4>
+    
+    {% if formation.chapitres.all %}
+        <ul style="list-style: none; padding: 0; margin: 0; font-family: system-ui, sans-serif;">
+            {% for chapitre in formation.chapitres.all %}
+                <li style="background: white; border: 1px solid #e2e8f0; padding: 18px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <div style="font-size: 13px; color: #334155; font-weight: 700;">
+                            <span style="color: #059669; font-weight: 800;">Module {{ chapitre.ordre }} :</span> {{ chapitre.titre }}
+                        </div>
+                        <span style="font-size: 11px; color: #64748b; font-weight: bold; background-color: #f1f5f9; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;">
+                            {% if chapitre.lien_video_demonstration %}Vidéo + PDF{% else %}Fiche PDF{% endif %}
+                        </span>
+                    </div>
+                    
+                    <p style="font-size: 13px; color: #475569; line-height: 1.5; margin: 0 0 12px 0; background-color: #f8fafc; padding: 10px; border-radius: 6px; border-left: 3px solid #cbd5e1;">
+                        {{ chapitre.contenu_texte|linebreaksbr }}
+                    </p>
+
+                    <!-- LECTEUR VIDÉO ET BOUTON DE SECOURS DIRECT SADDUR -->
+                    {% if chapitre.lien_video_demonstration %}
+                        <div style="margin-top: 15px; background-color: #f0fdf4; border: 1px solid #bbf7d0; padding: 15px; border-radius: 8px; font-family: system-ui, sans-serif;">
+                            <p style="margin: 0 0 10px 0; font-size: 13px; color: #166534; font-weight: bold;">
+                                📺 Démonstration pratique au champ disponible :
+                            </p>
+                            
+                            <a href="{{ chapitre.lien_video_demonstration }}" target="_blank" style="display: inline-block; background-color: #059669; color: white; text-decoration: none; font-size: 13px; font-weight: bold; padding: 8px 16px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 12px;">
+                                🚀 Lancer la démonstration technique (Plein écran) &rarr;
+                            </a>
+
+                            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 8px;">
+                                <iframe 
+                                    src="{{ chapitre.lien_video_demonstration|replace_youtube_links|safe }}" 
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="font-size: 12px; color: #94a3b8; font-style: italic; text-align: center; margin: 0; font-family: system-ui, sans-serif;">Les fiches techniques de ce module sont en cours de mise en ligne par l'enseignant.</p>
+    {% endif %}
+</div>
