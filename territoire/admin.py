@@ -118,10 +118,12 @@ class DemandeInscriptionAcademieAdmin(admin.ModelAdmin):
 
 @admin.register(CandidatureFormateur)
 class CandidatureFormateurAdmin(admin.ModelAdmin):
-    list_display = ('nom_complet', 'ministere_origine', 'specialite', 'telephone_whatsapp', 'est_approuve', 'date_postulation')
-    list_filter = ('ministere_origine', 'est_approuve', 'date_postulation')
+    # MISE À JOUR : Remplacement de est_approuve par statut_selection
+    list_display = ('nom_complet', 'ministere_origine', 'specialite', 'telephone_whatsapp', 'statut_selection', 'date_postulation')
+    list_filter = ('ministere_origine', 'statut_selection', 'date_postulation')
     search_fields = ('nom_complet', 'specialite', 'biographie_experience')
-    list_editable = ('est_approuve',)
+    list_editable = ('statut_selection',) # Permet de recruter ou rejeter en 1 clic depuis le tableau !
+    fields = ('nom_complet', 'ministere_origine', 'specialite', 'telephone_whatsapp', 'email', 'commune_base', 'biographie_experience', 'cv_document', 'statut_selection', 'motif_rejet')
 
 
 # --- MODULES DU MARCHÉ NATIONAL CONNECTÉ SADDUR ---
